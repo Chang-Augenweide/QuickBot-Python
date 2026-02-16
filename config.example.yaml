@@ -1,0 +1,139 @@
+# QuickBot 配置文件示例
+# 复制此文件为 config.yaml，并根据你的需求修改配置
+
+# ====================
+# Bot 基础配置
+# ====================
+bot:
+  name: QuickBot                    # Bot 名称
+  debug: false                      # 调试模式（开启后允许 Shell 命令）
+  timezone: Asia/Shanghai            # 时区设置
+
+# ====================
+# AI 提供商配置
+# ====================
+ai:
+  # 支持的提供商: openai, anthropic, ollama
+  provider: openai
+
+  # OpenAI 配置
+  api_key: ""                       # OpenAI API 密钥
+  model: gpt-4o                     # 模型选择: gpt-4o, gpt-4-turbo, gpt-3.5-turbo
+  base_url: https://api.openai.com/v1  # API 基础 URL
+  max_tokens: 2000                  # 最大生成 token 数
+  temperature: 0.7                  # 采样温度 (0-1)
+
+  # Anthropic 配置 (如果使用)
+  # provider: anthropic
+  # api_key: ""
+  # model: claude-3-opus-20240229
+  # base_url: https://api.anthropic.com
+
+  # Ollama 配置 (如果使用)
+  # provider: ollama
+  # api_key: ""  # Ollama 不需要 API 密钥
+  # model: llama2
+  # base_url: http://localhost:11434
+
+# ====================
+# 平台配置
+# ====================
+platforms:
+  # Telegram 平台
+  telegram:
+    enabled: true                   # 是否启用 Telegram
+    token: ""                       # Telegram Bot Token (@BotFather)
+    allowed_users:                  # 允许访问的用户（为空则允许所有人）
+      # - user1@example.com
+      # - user2
+
+  # Discord 平台
+  discord:
+    enabled: false                  # 是否启用 Discord
+    token: ""                       # Discord Bot Token
+
+  # Slack 平台
+  slack:
+    enabled: false                  # 是否启用 Slack
+    token: ""                       # Slack Bot Token
+
+# ====================
+# 内存管理配置
+# ====================
+memory:
+  enabled: true                     # 是否启用内存管理
+  storage: memory.db                # 内存数据库文件路径
+  max_messages: 1000                # 最大缓存消息数
+
+# ====================
+# 任务调度配置
+# ====================
+scheduler:
+  enabled: true                     # 是否启用任务调度
+  storage: scheduler.db             # 调度数据库文件路径
+
+# ====================
+# 工具系统配置
+# ====================
+tools:
+  enabled: true                     # 是否启用工具系统
+  directory: tools/                 # 工具目录（用于文件操作等）
+
+# ====================
+# Web 服务配置
+# ====================
+web:
+  enabled: false                    # 是否启用 Web API
+  host: 0.0.0.0                     # 监听主机
+  port: 8080                        # 监听端口
+  auth: ""                          # API 认证密钥（可选）
+
+# ====================
+# 日志配置
+# ====================
+logging:
+  level: INFO                       # 日志级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: quickbot.log                # 日志文件路径
+  max_size: 10485760               # 单个日志文件最大大小 (10MB)
+  backup_count: 5                  # 保留的日志文件数量
+
+# ====================
+# 安全配置
+# ====================
+security:
+  # API 密钥加密
+  encrypt_api_keys: true            # 是否加密存储 API 密钥
+
+  # 路径访问限制
+  allowed_paths:                    # 允许访问的路径模式
+    - ./
+  forbidden_paths:                  # 禁止访问的路径
+    - /etc
+    - /root
+    - ~/.ssh
+
+# ====================
+# 性能配置
+# ====================
+performance:
+  # 并发配置
+  max_concurrent_messages: 10       # 最大并发处理消息数
+
+  # 超时配置
+  request_timeout: 30              # API 请求超时时间（秒）
+  tool_execution_timeout: 10       # 工具执行超时时间（秒）
+
+# ====================
+# 高级配置
+# ====================
+advanced:
+  # 消息预处理
+  strip_markdown: false             # 是否移除 Markdown 格式
+
+  # 响应后处理
+  escape_html: false                # 是否转义 HTML 字符
+
+  # 速率限制
+  rate_limit:
+    enabled: false                 # 是否启用速率限制
+    per_user: 10                   # 每用户每分钟最大消息数
